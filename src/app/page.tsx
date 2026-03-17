@@ -108,6 +108,46 @@ function Tickets(){const[sel,setSel]=useState(0);return(
 <style>{`@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}`}</style>
 </section>);}
 
+
+function FAQ(){
+  const[open,setOpen]=useState<number|null>(null);
+  const items=[
+    {q:"What is Paparazzi?",a:"Paparazzi is Atlanta's celebrity-themed nightlife experience — where everyone's a star and the room matches the energy."},
+    {q:"How often does Paparazzi happen?",a:"Monthly, first of each month (May through September). Different theme and energy each edition."},
+    {q:"Is there a dress code?",a:"Yes — dress like you're attending a red carpet. No casual wear. We enforce the standard at the door."},
+    {q:"Can I purchase tickets at the door?",a:"Limited door availability. Always safer to purchase in advance via Eventbrite."},
+    {q:"Do you have a season pass?",a:"Contact thekollectiveworldwide@gmail.com for multi-event packages and season passes."},
+    {q:"How do I get on the VIP list?",a:"Email us at thekollectiveworldwide@gmail.com with subject 'Paparazzi VIP' for table reservations and bottle service."}
+  ];
+  return(
+<section id="faq" style={{background:C.base,padding:"80px clamp(32px,5vw,80px)",position:"relative",overflow:"hidden"}}>
+<Grain/>
+<div style={{maxWidth:"900px",margin:"0 auto",position:"relative",zIndex:1}}>
+<Reveal>
+<div style={{fontFamily:F.sans,fontSize:"9px",letterSpacing:"0.5em",textTransform:"uppercase",color:C.silver,marginBottom:"16px"}}>Frequently Asked</div>
+<h2 style={{fontFamily:F.sans,fontSize:"clamp(32px,5vw,64px)",fontWeight:400,fontStyle:"italic",color:C.cream,marginBottom:"48px",lineHeight:0.95}}>Common Questions</h2>
+</Reveal>
+<div style={{display:"flex",flexDirection:"column",gap:"2px",background:`${C.silver}20`}}>
+{items.map((item,i)=>(
+<Reveal key={i} d={i*0.05}>
+<div onClick={()=>setOpen(open===i?null:i)}
+style={{background:open===i?C.panel:C.surface,padding:"24px 28px",cursor:"pointer",
+borderLeft:`3px solid ${open===i?C.silver:"transparent"}`,transition:"all 0.3s"}}
+onMouseEnter={e=>{if(open!==i)(e.currentTarget as HTMLDivElement).style.background=`${C.silver}08`}}
+onMouseLeave={e=>{if(open!==i)(e.currentTarget as HTMLDivElement).style.background=C.surface}}
+>
+<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:"16px"}}>
+<div style={{fontFamily:F.sans,fontSize:"clamp(14px,1.5vw,18px)",fontStyle:"italic",color:C.cream,lineHeight:1.3}}>{item.q}</div>
+<div style={{color:C.silver,fontSize:"20px",flexShrink:0,transition:"transform 0.3s",transform:open===i?"rotate(45deg)":"rotate(0deg)"}}>+</div>
+</div>
+{open===i&&<div style={{fontFamily:F.sans,fontSize:"14px",color:C.muted,lineHeight:1.75,marginTop:"12px",paddingRight:"32px"}}>{item.a}</div>}
+</div>
+</Reveal>
+))}</div>
+</div>
+</section>
+);}
+
 function Footer(){return(<footer style={{background:"#0C0C0F",borderTop:`1px solid ${C.border}`,padding:"48px clamp(32px,5vw,80px) 32px"}}>
 <div style={{maxWidth:"1400px",margin:"0 auto",display:"flex",justifyContent:"space-between",alignItems:"flex-start",flexWrap:"wrap",gap:"32px"}}>
 <div><div style={{fontFamily:F.display,fontSize:"24px",fontStyle:"italic",fontWeight:700,color:C.cream,marginBottom:"4px"}}>Paparazzi</div>
@@ -123,4 +163,4 @@ function Footer(){return(<footer style={{background:"#0C0C0F",borderTop:`1px sol
 <div style={{fontFamily:F.mono,fontSize:"10px",color:"rgba(255,255,255,0.18)"}}>© 2026 Paparazzi. A KHG Enterprise.</div>
 </div></footer>);}
 
-export default function PaparazziSite(){return(<div style={{background:C.base}}><Nav/><Hero/><Experience/><Tickets/><Footer/></div>);}
+export default function PaparazziSite(){return(<div style={{background:C.base}}><Nav/><Hero/><Experience/><Tickets/><FAQ/><Footer/></div>);}
